@@ -103,6 +103,25 @@ $otp_timer_duration = get_option('cod_verifier_otp_timer_duration', 30);
                     </button>
                 </div>
                 
+                <!-- NEW: Container for payment feedback and animation -->
+                <div id="token-payment-feedback" style="display: none; text-align: center; margin-top: 20px;">
+                    <!-- Success Animation Element -->
+                    <div id="success-animation" style="display: none;">
+                        <!-- Attractive SVG Success Animation -->
+                        <div style="position: relative; display: inline-block;">
+                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2" style="width: 100px; height: 100px; animation: successPulse 0.6s ease-in-out;">
+                                <circle cx="65.1" cy="65.1" r="62.1" fill="none" stroke="#28a745" stroke-width="4" stroke-miterlimit="10" style="animation: drawCircle 0.6s ease-in-out;"/>
+                                <polyline fill="none" stroke="#28a745" stroke-width="4" stroke-linecap="round" stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5" style="animation: drawCheck 0.3s ease-in-out 0.6s both;"/>
+                            </svg>
+                            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 24px; animation: sparkle 1s ease-in-out 0.9s;">✨</div>
+                        </div>
+                        <p style="color: #28a745; font-weight: bold; margin-top: 15px; font-size: 18px; animation: fadeInUp 0.5s ease-in-out 1.2s both;">Payment Successful!</p>
+                    </div>
+                    
+                    <!-- Refund Information Message -->
+                    <p id="refund-info-message" style="margin-top: 15px; font-size: 16px; color: #333; background: #e8f5e8; padding: 12px; border-radius: 8px; border-left: 4px solid #28a745; animation: fadeInUp 0.5s ease-in-out 1.5s both;"></p>
+                </div>
+                
                 <div class="cod-checkbox-group">
                     <label class="cod-checkbox-label">
                         <input type="checkbox" id="cod_token_confirmed" name="cod_token_confirmed" value="1">
@@ -139,6 +158,45 @@ $otp_timer_duration = get_option('cod_verifier_otp_timer_duration', 30);
         </div>
     </div>
 </div>
+
+<!-- CSS Animations for Success Feedback -->
+<style>
+@keyframes successPulse {
+    0% { transform: scale(0.8); opacity: 0; }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes drawCircle {
+    0% { stroke-dasharray: 0 400; }
+    100% { stroke-dasharray: 400 400; }
+}
+
+@keyframes drawCheck {
+    0% { stroke-dasharray: 0 100; }
+    100% { stroke-dasharray: 100 100; }
+}
+
+@keyframes sparkle {
+    0%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+    50% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+}
+
+@keyframes fadeInUp {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+.cod-status-badge.success {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.cod-status-badge.failed {
+    background: #fee2e2;
+    color: #dc2626;
+}
+</style>
 
 <!-- Hidden data for JavaScript -->
 <script type="text/javascript">
